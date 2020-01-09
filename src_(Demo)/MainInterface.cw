@@ -17,7 +17,7 @@ package  {
 	import GZ.File.RcImg;
 	//import Demo.Screen.DemoRoll;
 	//import Demo.Screen.FpsCount;
-	import Demo.Screen.DemoNima;
+	import Demo.Screen.DemoBox2d;
 	
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Minimal;
@@ -94,7 +94,7 @@ package  {
 		
 		override public function fWinStart():Void {
 			
-			oDemo = new DemoNima(this);
+			oDemo = new DemoBox2d(this);
 					
 		
 		}

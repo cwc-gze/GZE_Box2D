@@ -24,11 +24,12 @@ package  {
 	import GZ.Base.PtA;
 	
 	import GzNima.Runtime.NmActor;
+	import GzBox2D.Vector.B2Vec2;
 
 	/**
 	 * @author Maeiky
 	 */
-	public class DemoNima extends Clip {
+	public class DemoBox2d extends Clip {
 
 		public var oImg : Img;
 		public var oLetter : Letter;
@@ -47,10 +48,14 @@ package  {
 		
 		
 		
-		public function DemoNima( _oParent : Root ):Void {
+		public function DemoBox2d( _oParent : Root ):Void {
 			Clip(_oParent, _oParent.oItf.nHalfFrameWidth,  _oParent.oItf.nHalfFrameHeight);
 			
 			
+			
+			
+			
+			var _vTest : B2Vec2<Float> = new B2Vec2<Float>();
 			
 			
 			
