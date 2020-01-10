@@ -27,9 +27,9 @@ package  {
 	import GzBox2D.Vector.B2Vec2;
 	
 	
-	<cpp>
+	<cpp_h>
 	#include "Box2D/Box2D.h"
-	</cpp>
+	</cpp_h>
 	
 
 	/**
@@ -53,9 +53,8 @@ package  {
 		public var oNmActor : NmActor;
 	
 		<cpp_class_h>
-			
-		
-	
+			b2World* oWorld;
+			b2Body* oBody;
 		</cpp_class_h>
 	
 		
@@ -66,28 +65,29 @@ package  {
 			
 			var _vGravity : B2Vec2<Float> = new B2Vec2<Float>();
 			_vGravity.nX = 0;
-			_vGravity.nY = -10;
+			_vGravity.nY = 10;
 			
 			
 			<cpp>
 				// Construct a world object, which will hold and simulate the rigid bodies.
-				b2World world(_vGravity.vB2d);
+				//b2World world(_vGravity.vB2d);
+				oWorld =  new b2World(_vGravity.vB2d);
 				
 			
 				// Define the ground body.
 				b2BodyDef groundBodyDef;
-				groundBodyDef.position.Set(0.0f, -10.0f);
+				groundBodyDef.position.Set(0.0f, 10.0f);
 
 				// Call the body factory which allocates memory for the ground body
 				// from a pool and creates the ground box shape (also from a pool).
 				// The body is also added to the world.
-				b2Body* groundBody = world.CreateBody(&groundBodyDef);
+				b2Body* groundBody = oWorld->CreateBody(&groundBodyDef);
 
 				// Define the ground box shape.
 				b2PolygonShape groundBox;
 
 				// The extents are the half-widths of the box.
-				groundBox.SetAsBox(50.0f, 10.0f);
+				groundBox.SetAsBox(50.0f, 10.0f, b2Vec2(0,0), 0.785 );
 
 				// Add the ground fixture to the ground body.
 				groundBody->CreateFixture(&groundBox, 0.0f);
@@ -95,8 +95,8 @@ package  {
 				// Define the dynamic body. We set its position and call the body factory.
 				b2BodyDef bodyDef;
 				bodyDef.type = b2_dynamicBody;
-				bodyDef.position.Set(0.0f, 4.0f);
-				b2Body* body = world.CreateBody(&bodyDef);
+				bodyDef.position.Set(0.0f, -4.0f);
+				oBody = oWorld->CreateBody(&bodyDef);
 
 				// Define another box shape for our dynamic body.
 				b2PolygonShape dynamicBox;
@@ -113,14 +113,9 @@ package  {
 				fixtureDef.friction = 0.3f;
 
 				// Add the shape to the body.
-				body->CreateFixture(&fixtureDef);
+				oBody->CreateFixture(&fixtureDef);
 
-				// Prepare for simulation. Typically we use a time step of 1/60 of a
-				// second (60Hz) and 10 iterations. This provides a high quality simulation
-				// in most game scenarios.
-				float32 timeStep = 1.0f / 60.0f;
-				int32 velocityIterations = 6;
-				int32 positionIterations = 2;
+			
 				
 			</cpp>
 			
@@ -222,6 +217,26 @@ package  {
 
 		
 		override public function fUpdateParentToChild():Void {
+			<cpp>
+			// Prepare for simulation. Typically we use a time step of 1/60 of a
+				// second (60Hz) and 10 iterations. This provides a high quality simulation
+				// in most game scenarios.
+				float32 timeStep = 1.0f / 60.0f;
+				int32 velocityIterations = 6;
+				int32 positionIterations = 2;
+				
+			// Instruct the world to perform a single step of simulation.
+			// It is generally best to keep the time step and iterations fixed.
+			oWorld->Step(timeStep, velocityIterations, positionIterations);
+
+			// Now print the position and angle of the body.
+			b2Vec2 position = oBody->GetPosition();
+			float32 angle = oBody->GetAngle();
+
+			printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+		///////////////////////////////////
+			</cpp>
+		
 		
 
 			nAdd++;
