@@ -114,7 +114,33 @@ package  {
 
 				// Add the shape to the body.
 				oBody->CreateFixture(&fixtureDef);
+					
+					
+				 b2Fixture* F = oBody->GetFixtureList();             
+					while(F != NULL)
+					{
+						switch (F->GetType())
+						{
+							case b2Shape::e_circle:
+							{
+								b2CircleShape* circle = (b2CircleShape*) F->GetShape();                     
+								printf("\n------CircleShape");
+							}
+							break;
 
+							case b2Shape::e_polygon:
+							{
+								b2PolygonShape* poly = (b2PolygonShape*) F->GetShape();
+								/* Do stuff with a polygon shape */
+									printf("\n------b2PolygonShape");
+							}
+							break;
+						}
+						F = F->GetNext();
+					}	
+					
+					
+					
 			
 				
 			</cpp>
@@ -212,11 +238,17 @@ package  {
 			
 			oButton = new ButtonImg(this, 0, 0, _oImgRc);
 			
+			oVectorShape.oShape.aNewPt3dOri[0].vPt.nX = 50;
 			
 		}	
 
 		
 		override public function fUpdateParentToChild():Void {
+		
+		
+			var _nX : Float = 0;
+			var _nY  : Float = 0;
+			var _nAngle  : Float = 0;
 			<cpp>
 			// Prepare for simulation. Typically we use a time step of 1/60 of a
 				// second (60Hz) and 10 iterations. This provides a high quality simulation
@@ -233,12 +265,20 @@ package  {
 			b2Vec2 position = oBody->GetPosition();
 			float32 angle = oBody->GetAngle();
 
-			printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+			
+			_nX = position.x;
+			_nY = position.y;
+			_nAngle = angle;
+			//printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 		///////////////////////////////////
 			</cpp>
 		
+		oVectorShape.vPos.nX = _nX;
+		oVectorShape.vPos.nY = _nY;
+			oVectorShape.vRot.nRoll = _nAngle;	
 		
-
+		//	oVectorShape.oShape.aNewPt3dOri[0].vPt.nX = 50;
+		
 			nAdd++;
 			
 			/*
