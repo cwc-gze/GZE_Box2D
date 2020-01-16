@@ -48,6 +48,7 @@ package  {
 		
 		public var oLine : Line;
 		public var oVectorShape : VectorShape;
+		public var oVectorGround : VectorShape;
 		
 		public var oButton : ButtonImg;
 		public var oNmActor : NmActor;
@@ -55,6 +56,7 @@ package  {
 		<cpp_class_h>
 			b2World* oWorld;
 			b2Body* oBody;
+			b2Body* oGroundBody;
 		</cpp_class_h>
 	
 		
@@ -81,7 +83,7 @@ package  {
 				// Call the body factory which allocates memory for the ground body
 				// from a pool and creates the ground box shape (also from a pool).
 				// The body is also added to the world.
-				b2Body* groundBody = oWorld->CreateBody(&groundBodyDef);
+				oGroundBody = oWorld->CreateBody(&groundBodyDef);
 
 				// Define the ground box shape.
 				b2PolygonShape groundBox;
@@ -90,17 +92,17 @@ package  {
 				groundBox.SetAsBox(50.0f, 10.0f, b2Vec2(0,0), 0.785 );
 
 				// Add the ground fixture to the ground body.
-				groundBody->CreateFixture(&groundBox, 0.0f);
+				oGroundBody->CreateFixture(&groundBox, 0.0f);
 
 				// Define the dynamic body. We set its position and call the body factory.
 				b2BodyDef bodyDef;
 				bodyDef.type = b2_dynamicBody;
-				bodyDef.position.Set(0.0f, -4.0f);
+				bodyDef.position.Set(0.0f, -40.0f);
 				oBody = oWorld->CreateBody(&bodyDef);
 
 				// Define another box shape for our dynamic body.
 				b2PolygonShape dynamicBox;
-				dynamicBox.SetAsBox(1.0f, 1.0f);
+				dynamicBox.SetAsBox(10.0f, 10.0f);
 
 				// Define the dynamic body fixture.
 				b2FixtureDef fixtureDef;
@@ -115,69 +117,11 @@ package  {
 				// Add the shape to the body.
 				oBody->CreateFixture(&fixtureDef);
 					
-					
-				 b2Fixture* F = oBody->GetFixtureList();             
-					while(F != NULL)
-					{
-						switch (F->GetType())
-						{
-							case b2Shape::e_circle:
-							{
-								b2CircleShape* circle = (b2CircleShape*) F->GetShape();                     
-								printf("\n------CircleShape");
-							}
-							break;
-
-							case b2Shape::e_polygon:
-							{
-								b2PolygonShape* poly = (b2PolygonShape*) F->GetShape();
-								/* Do stuff with a polygon shape */
-									printf("\n------b2PolygonShape");
-									
-								</cpp>	
-								var _oShape : Shape = new Shape(this, 0,0,0,false);
-								<cpp>	
-									
-									
-								///Build shape
-								for(int i = 0; i < poly->m_count; i++){
-									</cpp>
-									var _vPos : B2Vec2<Float> = new B2Vec2<Float>(0,0);
-									//var _nX : Float;
-									//var _nY : Float;
-									<cpp>
-									_vPos.vB2d = poly->m_vertices[i];
-								
-									printf("\nX %f, nY %f", poly->m_vertices[i].x,  poly->m_vertices[i].y);
-									</cpp>
-									
-									var _oCenter  : Pt<Float> = new Pt<Float>(0.5, 0.5);
-									
-								var _oPt : PtA = new PtA(_vPos.nX , _vPos.nY );
-									_oShape.fAddPt(_oPt, _oCenter);
-									
-
-									<cpp>
-										printf("\nCount: %d ", i);
-								}
-								
-									</cpp>
-									oVectorShape = new VectorShape(this, 1.0, _oShape);
-									<cpp>
-								
-								
-							}
-							break;
-						}
-						F = F->GetNext();
-					}	
+				oVectorShape = fCreateB2dShape(oBody);
+				oVectorGround = fCreateB2dShape(oGroundBody);
+				
 					
 			</cpp>
-			
-			
-			
-			
-			
 			
 			
 			
@@ -255,7 +199,7 @@ package  {
 
 	/////////////////////////////////////////////////////////////////////////////////////////////				
 			//oLine = new Line(this, new PtA(0 ,0), new PtA(200 , 200));
-			oVectorShape = new VectorShape(this, 1.0);
+		//	oVectorShape = new VectorShape(this, 1.0);
 						
 			var _oImgRc : RcImg = new RcImg( "Exe|Rc/SimpleButton.png");
 				_oImgRc.fCpuLoad();
@@ -271,6 +215,100 @@ package  {
 			
 		}	
 
+		
+		
+		
+		
+		public function fCreateB2dShape(_oBody : Any):VectorShape {
+				
+			var _oVectorShape : VectorShape;
+			<cpp>
+			b2Fixture* F = ((b2Body*)_oBody)->GetFixtureList();             
+			while(F != NULL)
+			{
+				switch (F->GetType())
+				{
+					case b2Shape::e_circle:
+					{
+						b2CircleShape* circle = (b2CircleShape*) F->GetShape();                     
+						printf("\n------CircleShape");
+					}
+					break;
+
+					case b2Shape::e_polygon:
+					{
+						b2PolygonShape* poly = (b2PolygonShape*) F->GetShape();
+						/* Do stuff with a polygon shape */
+							printf("\n------b2PolygonShape");
+							
+						</cpp>	
+						var _oShape : Shape = new Shape(this, 0,0,0,false);
+						<cpp>	
+							
+							
+						///Build shape
+						for(int i = 0; i < poly->m_count; i++){
+							</cpp>
+							var _vPos : B2Vec2<Float> = new B2Vec2<Float>(0,0);
+							//var _nX : Float;
+							//var _nY : Float;
+							<cpp>
+							_vPos.vB2d = poly->m_vertices[i];
+						
+							printf("\nX %f, nY %f", poly->m_vertices[i].x,  poly->m_vertices[i].y);
+							</cpp>
+							
+							var _oCenter  : Pt<Float> = new Pt<Float>(0.5, 0.5);
+							
+							var _oPt : PtA = new PtA(_vPos.nX , _vPos.nY );
+							_oShape.fAddPt(_oPt, _oCenter);
+							
+
+							<cpp>
+								printf("\nCount: %d ", i);
+						}
+						
+							</cpp>
+							_oVectorShape = new VectorShape(this, 1.0, _oShape);
+							<cpp>
+						
+						
+					}
+					break;
+				}
+				F = F->GetNext();
+			}
+			</cpp>
+			
+			return _oVectorShape;
+		}
+		
+		
+		public function fApplyB2dPos(_oShape : VectorShape, _oBody : Any):VectorShape {
+			var _nX : Float = 0;
+			var _nY  : Float = 0;
+			var _nAngle  : Float = 0;
+			
+			<cpp>
+			b2Vec2 position =  ((b2Body*)_oBody)->GetPosition();
+			float32 angle =  ((b2Body*)_oBody)->GetAngle();
+			_nX = position.x;
+			_nY = position.y;
+			_nAngle = angle;
+			//printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+			</cpp>
+			
+			_oShape.vPos.nX = _nX;
+			_oShape.vPos.nY = _nY;
+			_oShape.vRot.nRoll = _nAngle;	
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		override public function fUpdateParentToChild():Void {
 		
@@ -290,22 +328,12 @@ package  {
 			// It is generally best to keep the time step and iterations fixed.
 			oWorld->Step(timeStep, velocityIterations, positionIterations);
 
-			// Now print the position and angle of the body.
-			b2Vec2 position = oBody->GetPosition();
-			float32 angle = oBody->GetAngle();
-
+			fApplyB2dPos(oVectorShape, oBody);
+			fApplyB2dPos(oVectorGround, oGroundBody);
 			
-			_nX = position.x;
-			_nY = position.y;
-			_nAngle = angle;
-			//printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
-		///////////////////////////////////
 			</cpp>
-		
-		oVectorShape.vPos.nX = _nX;
-		oVectorShape.vPos.nY = _nY;
-			oVectorShape.vRot.nRoll = _nAngle;	
-		
+			
+
 		//	oVectorShape.oShape.aNewPt3dOri[0].vPt.nX = 50;
 		
 			nAdd++;
