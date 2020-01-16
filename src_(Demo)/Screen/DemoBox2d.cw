@@ -11,9 +11,9 @@ package  {
 	import GZ.Sys.Interface.Interface;
 	import GZ.Gfx.Clip;
 	import GZ.Gfx.Clip.Text;
-
+	import GZ.Gfx.Shape;
 	import GZ.Base.Math.Math;
-
+	import GZ.Base.Pt;
 	import GZ.Gfx.Clip.Img;
 	import GZ.Gfx.Clip.ButtonImg;
 	import GZ.Gfx.Vector.VectorShape;
@@ -133,16 +133,45 @@ package  {
 								b2PolygonShape* poly = (b2PolygonShape*) F->GetShape();
 								/* Do stuff with a polygon shape */
 									printf("\n------b2PolygonShape");
+									
+								</cpp>	
+								var _oShape : Shape = new Shape(this, 0,0,0,false);
+								<cpp>	
+									
+									
+								///Build shape
+								for(int i = 0; i < poly->m_count; i++){
+									</cpp>
+									var _vPos : B2Vec2<Float> = new B2Vec2<Float>(0,0);
+									//var _nX : Float;
+									//var _nY : Float;
+									<cpp>
+									_vPos.vB2d = poly->m_vertices[i];
+								
+									printf("\nX %f, nY %f", poly->m_vertices[i].x,  poly->m_vertices[i].y);
+									</cpp>
+									
+									var _oCenter  : Pt<Float> = new Pt<Float>(0.5, 0.5);
+									
+								var _oPt : PtA = new PtA(_vPos.nX , _vPos.nY );
+									_oShape.fAddPt(_oPt, _oCenter);
+									
+
+									<cpp>
+										printf("\nCount: %d ", i);
+								}
+								
+									</cpp>
+									oVectorShape = new VectorShape(this, 1.0, _oShape);
+									<cpp>
+								
+								
 							}
 							break;
 						}
 						F = F->GetNext();
 					}	
 					
-					
-					
-			
-				
 			</cpp>
 			
 			
@@ -238,7 +267,7 @@ package  {
 			
 			oButton = new ButtonImg(this, 0, 0, _oImgRc);
 			
-			oVectorShape.oShape.aNewPt3dOri[0].vPt.nX = 50;
+			//oVectorShape.oShape.aNewPt3dOri[0].vPt.nX = 50;
 			
 		}	
 
