@@ -66,7 +66,7 @@ package  {
 			
 	
 			bGpuDraw = false;
-			bGpuDraw = true;
+		//	bGpuDraw = true;
 			
 			
 			//!Make window transparent (Render or CPU)
