@@ -258,7 +258,7 @@ package  {
 							printf("\nX %f, nY %f", poly->m_vertices[i].x,  poly->m_vertices[i].y);
 							</cpp>
 							
-							var _oCenter  : Pt<Float> = new Pt<Float>(0.5, 0.5);
+							var _oCenter  : Pt<Float> = new Pt<Float>(0.0, 0.0);
 							
 							var _oPt : PtA = new PtA(_vPos.nX , _vPos.nY );
 							_oShape.fAddPt(_oPt, _oCenter);

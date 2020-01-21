@@ -31,7 +31,6 @@ package  {
 	
 	import GZ.Base.Math.Math;
 	
-	import GZ.Base.Thread.Thread;
 	import GZ.Sys.ThreadItf;
 	
 	import GZ.Base.Mat4x4;
@@ -77,7 +76,7 @@ package  {
 			//Create a new windows
 			Interface(_oThreadItf, "GroundZero", 800, 600, _bTranparent, 0xFFFFFFFF);
 
-			fCreateInterface(300,100);
+			fCreateInterface();
 		}
 		
 		
