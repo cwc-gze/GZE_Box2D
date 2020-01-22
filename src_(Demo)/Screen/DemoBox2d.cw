@@ -23,7 +23,6 @@ package  {
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Base.PtA;
 	
-	import GzNima.Runtime.NmActor;
 	import GzBox2D.Vector.B2Vec2;
 	
 	
@@ -51,7 +50,7 @@ package  {
 		public var oVectorGround : VectorShape;
 		
 		public var oButton : ButtonImg;
-		public var oNmActor : NmActor;
+
 	
 		<cpp_class_h>
 			b2World* oWorld;
@@ -137,10 +136,7 @@ package  {
 		
 	
 			
-			
-			oNmActor = new NmActor(this, 0, 0);
-				
-			
+
 			
 			
 			Debug.fTrace("--------");

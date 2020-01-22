@@ -8,7 +8,6 @@ import Demo.MainInterface;
 	import GZ.EntryPoint;
 	
 		<cpp>
-		#include "Lib_GzNima/Lib_GzNima.h"
 		#include "Lib_GzBox2D/Lib_GzBox2D.h"
 		</cpp>
 	
@@ -20,7 +19,6 @@ import Demo.MainInterface;
 		public function MainEntry():Int {
 			
 			<cpp>
-			IniLib_Lib_GzNima();
 			IniLib_Lib_GzBox2D();
 			</cpp>
 		
