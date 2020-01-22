@@ -269,7 +269,7 @@ package  {
 						}
 						
 							</cpp>
-							_oVectorShape = new VectorShape(this, 4.0, _oShape);
+							_oVectorShape = new VectorShape(this, 10.0, _oShape);
 							<cpp>
 						
 						
