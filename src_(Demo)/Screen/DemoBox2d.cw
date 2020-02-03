@@ -131,7 +131,7 @@ package  {
 			Debug.fTrace("----LoadFont ----");
 		
 		//	var _oFont : RcFont = new RcFont( "c:/extra_fonts/ProggyClean.ttf");
-			var _oFont : RcFont = new RcFont( "Exe|Rc/Fonts/ProggyTiny.ttf", 10);
+			var _oFont : RcFont = new RcFont( "Exe|Rc/Fonts/ProggyT.ttf", 10);
 		//	var _oFont : RcFont = new RcFont("c:/extra_fonts/DroidSans.ttf");
 		
 	
@@ -197,7 +197,7 @@ package  {
 			//oLine = new Line(this, new PtA(0 ,0), new PtA(200 , 200));
 		//	oVectorShape = new VectorShape(this, 1.0);
 						
-			var _oImgRc : RcImg = new RcImg( "Exe|Rc/SimpleButton.png");
+			var _oImgRc : RcImg = new RcImg( "Exe|Rc/Button.png");
 				_oImgRc.fCpuLoad();
 			if(Context.oItf.bGpuDraw){
 				_oImgRc.fSetGpuTexLayer(Attribute_Quad.oTexture);
