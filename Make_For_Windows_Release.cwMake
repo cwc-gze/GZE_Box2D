@@ -2,4 +2,4 @@
 >
 -{_sOpt}="O3"
 >
--#Run Build.cwc -{_wToolchain}= VLianceTool/LibRT[Mingw]
+-#Run Build.cwc -{_wToolchain}= VLianceTool/LibRT
