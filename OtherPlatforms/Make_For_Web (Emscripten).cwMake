@@ -1,0 +1,24 @@
+;Register Cwc before using a .cwMake
+>
+;Set the optimisation level
+-{_sOpt}="OS"
+>
+;Set a Toolchain (VLianceTool/WebRT)
+-{_wToolchain}= VLianceTool/WebRT
+>
+;Compile C~ to C++, We specify the Entry Point file of a CWayv program to build, 
+; we choose to output C++ object files to a array Files List (aCwObj) with the directive #Obj
+-L src_(Demo)/ -e src_(Demo)/MainEntry.cw -o obj/cw/ -#Obj=>{aCwObj}
+ >
+;Compile the Files List and use the Toolchain C++ compiler to get obj file
+-c {aCwObj} -o obj/cpp_{_sPlatform}_{_sOpt}/cwObj/ -I obj/cw/
+ >
+;Build GZE Library, which  as is own cwc Makefile
+-#Build VLiance/GZE/v1.0 -#To obj/cpp_{_sPlatform}_{_sOpt}/GZE/LibGZE/ -I obj/cw/
+>
+;Take all object file in the output folder and link them to make a binary
+; with a file extension  depending on the chosen platform (wildcard: .*)
+-o obj/cpp_{_sPlatform}_{_sOpt}/ -#To _out/{_sPlatform}_{_sOpt}/App.*
+>
+;Launch the resulted binary with default parameter
+-#Run

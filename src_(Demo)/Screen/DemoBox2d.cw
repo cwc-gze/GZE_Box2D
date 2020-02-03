@@ -66,7 +66,7 @@ package  {
 			
 			var _vGravity : B2Vec2<Float> = new B2Vec2<Float>();
 			_vGravity.nX = 0;
-			_vGravity.nY = 10;
+			_vGravity.nY = 25;
 			
 			
 			<cpp>
@@ -265,7 +265,7 @@ package  {
 						}
 						
 							</cpp>
-							_oVectorShape = new VectorShape(this, 10.0, _oShape);
+							_oVectorShape = new VectorShape(this, 1.5, _oShape);
 							<cpp>
 						
 						
